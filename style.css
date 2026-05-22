@@ -1,0 +1,431 @@
+/* ============================================
+   AEES — Amicale des Élèves et Étudiants de Sangharé
+   Feuille de style principale
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f4f9;
+    color: #1a2a3a;
+    line-height: 1.5;
+}
+
+/* ── LAYOUT ── */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* ── HEADER ── */
+.header {
+    background: white;
+    padding: 15px 20px;
+    text-align: center;
+    border-bottom: 3px solid #1a5c8c;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.header-logo-img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.header-text .logo {
+    font-size: 28px;
+    font-weight: bold;
+    color: #1a5c8c;
+}
+
+.header-text .sous-titre {
+    font-size: 12px;
+    color: #555;
+    margin-top: 3px;
+}
+
+/* ── MENU ── */
+.menu {
+    background: #1a5c8c;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 12px;
+    flex-wrap: wrap;
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.menu a:hover {
+    background: white;
+    color: #1a5c8c;
+}
+
+/* ── CARTES ── */
+.card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+h2 {
+    color: #1a5c8c;
+    margin-bottom: 15px;
+    font-size: 22px;
+    border-left: 4px solid #1a5c8c;
+    display: inline-block;
+    padding-left: 12px;
+}
+
+/* ── IMAGES ── */
+.polo-img {
+    max-width: 320px;
+    width: 100%;
+    margin: 15px auto;
+    display: block;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(26, 92, 140, 0.15);
+}
+
+.logo-img {
+    max-width: 200px;
+    width: 100%;
+    margin: 15px auto;
+    display: block;
+}
+
+/* ── PRIX & BADGES ── */
+.prix {
+    font-size: 36px;
+    font-weight: bold;
+    color: #1a5c8c;
+    margin: 15px 0;
+}
+
+.polo-badges {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 10px 0;
+}
+
+.polo-badge {
+    background: #eef3fa;
+    color: #1a5c8c;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid #cde0f0;
+}
+
+/* ── BOUTONS ── */
+.btn {
+    background: #1a5c8c;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    margin: 10px 0;
+    display: inline-block;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.btn:hover {
+    background: #000;
+}
+
+/* ── FORMULAIRE ── */
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    font-size: 14px;
+}
+
+textarea {
+    border-radius: 15px;
+    resize: vertical;
+}
+
+.row {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.row > div {
+    flex: 1;
+    min-width: 200px;
+}
+
+/* ── BLOC LOGO ACCUEIL ── */
+.aees-logo-container {
+    background: linear-gradient(135deg, #f8fafc 0%, #eef3fa 100%);
+    border-radius: 20px;
+    padding: 20px;
+    margin: 15px 0;
+    text-align: center;
+    border: 1px solid #cde0f0;
+}
+
+.aees-main-logo {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1a5c8c;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+}
+
+.aees-sub {
+    font-size: 12px;
+    color: #4a6a8a;
+    font-weight: 500;
+}
+
+.structure-text {
+    font-style: italic;
+    color: #3a6a8a;
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.separator {
+    width: 60px;
+    height: 3px;
+    background: #1a5c8c;
+    margin: 12px auto;
+    border-radius: 3px;
+}
+
+/* ── PANNEAU ADMIN ── */
+.admin-panel {
+    background: #fff8e7;
+    border: 2px solid #1a5c8c;
+    margin-top: 30px;
+}
+
+.stats {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 15px 0;
+}
+
+.stat {
+    background: #1a5c8c;
+    color: white;
+    padding: 10px;
+    border-radius: 12px;
+    flex: 1;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* ── NOTIFICATIONS ── */
+.notification-area {
+    background: #e8f0f8;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-left: 5px solid #1a5c8c;
+}
+
+.notification-title {
+    font-weight: bold;
+    color: #1a5c8c;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.notification-list {
+    max-height: 150px;
+    overflow-y: auto;
+    font-size: 13px;
+}
+
+.notification-item {
+    background: white;
+    padding: 8px 12px;
+    margin: 5px 0;
+    border-radius: 8px;
+    border-left: 3px solid #1a5c8c;
+    animation: fadeIn 0.3s ease;
+}
+
+.notification-item.new {
+    background: #fff3cd;
+    border-left-color: #ff9800;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ── TABLEAU ── */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+th, td {
+    border-bottom: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background: #1a5c8c;
+    color: white;
+}
+
+.action-btn {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 4px 10px;
+    border-radius: 15px;
+    cursor: pointer;
+    margin: 2px;
+    font-size: 11px;
+}
+
+.edit-btn {
+    background: #3498db;
+}
+
+/* ── LOGIN ADMIN ── */
+.admin-login {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.admin-login input {
+    width: 200px;
+}
+
+/* ── BADGES ── */
+.badge {
+    display: inline-block;
+    background: #e74c3c;
+    color: white;
+    border-radius: 20px;
+    padding: 2px 8px;
+    font-size: 11px;
+    margin-left: 8px;
+}
+
+.real-time-badge {
+    background: #ff9800;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%   { opacity: 1; }
+    50%  { opacity: 0.6; }
+    100% { opacity: 1; }
+}
+
+/* ── WHATSAPP FLOTTANT ── */
+.whatsapp {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #25D366;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+    transition: background 0.2s;
+}
+
+.whatsapp:hover {
+    background: #1da851;
+}
+
+/* ── TOAST ── */
+.toast {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    background: #1a5c8c;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 14px;
+    z-index: 1000;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(50px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ── FOOTER ── */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #1a2e3a;
+    color: #aaccee;
+    font-size: 12px;
+    margin-top: 20px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 700px) {
+    .container { padding: 12px; }
+    .row       { flex-direction: column; }
+    .menu      { gap: 15px; }
+    .header    { flex-direction: column; gap: 8px; }
+}

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>AEES - Polo Bleu 5000 FCFA | Amicale de Sangharé</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     HEADER
+══════════════════════════════════════ -->
+<div class="header">
+    <img class="header-logo-img" src="images/logo.png" alt="Logo AEES">
+    <div class="header-text">
+        <div class="logo">AEES — Sangharé</div>
+        <div class="sous-titre">Amicale des Élèves et Étudiants de Sangharé</div>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     MENU NAVIGATION
+══════════════════════════════════════ -->
+<div class="menu">
+    <a onclick="showSection('accueil')">Accueil</a>
+    <a onclick="showSection('polo')">Notre Polo</a>
+    <a onclick="showSection('commande')">Commander</a>
+    <a onclick="showSection('admin')" id="adminMenuLink">📊 Admin (Supervision)</a>
+</div>
+
+<!-- ══════════════════════════════════════
+     SECTION : ACCUEIL
+══════════════════════════════════════ -->
+<div id="accueilSection" class="container">
+    <div class="card">
+        <div class="aees-logo-container">
+            <img class="logo-img" src="images/logo.png" alt="Logo AEES">
+            <div class="separator"></div>
+            <div class="aees-main-logo">AEES</div>
+            <div class="structure-text">Une structure qui traverse les générations.</div>
+            <div class="aees-sub">AMICALE DES ÉLÈVES ET ÉTUDIANTS DE SANGHARÉ</div>
+        </div>
+
+        <h2>Bienvenue à l'AEES</h2>
+        <p style="margin: 15px 0; font-size: 16px;">
+            L'Amicale des Élèves et Étudiants de Sangharé vous propose son polo officiel.
+            Portez les couleurs de notre communauté avec fierté et soutenez nos actions.
+        </p>
+        <button class="btn" onclick="showSection('polo')">Découvrir le polo →</button>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SECTION : POLO
+══════════════════════════════════════ -->
+<div id="poloSection" class="container" style="display:none;">
+    <div class="card">
+        <h2>Polo Officiel AEES</h2>
+        <img class="polo-img" src="images/polo.png" alt="Polo Bleu AEES">
+        <div class="prix">5 000 FCFA</div>
+        <div class="polo-badges">
+            <span class="polo-badge">🎽 Polo Bleu</span>
+            <span class="polo-badge">✅ Édition AEES</span>
+            <span class="polo-badge">👕 S / M / L / XL / XXL</span>
+        </div>
+        <p style="margin-top: 10px;">Polo officiel AEES avec logo brodé — édition limitée</p>
+        <button class="btn" onclick="showSection('commande')" style="margin-top: 15px;">Commander maintenant</button>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SECTION : COMMANDE
+══════════════════════════════════════ -->
+<div id="commandeSection" class="container" style="display:none;">
+    <div class="card">
+        <h2>Formulaire de commande</h2>
+        <form id="orderForm">
+
+            <div class="row">
+                <div class="form-group">
+                    <label>Nom complet *</label>
+                    <input type="text" id="fullname" required placeholder="Votre nom complet">
+                </div>
+                <div class="form-group">
+                    <label>WhatsApp *</label>
+                    <input type="tel" id="whatsapp" required placeholder="+221 XX XXX XX XX">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <label>Adresse / Localisation</label>
+                    <input type="text" id="address" placeholder="Sangharé, Dakar...">
+                </div>
+                <div class="form-group">
+                    <label>Taille *</label>
+                    <select id="size">
+                        <option>S</option>
+                        <option>M</option>
+                        <option selected>L</option>
+                        <option>XL</option>
+                        <option>XXL</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <label>Couleur</label>
+                    <input type="text" value="Bleu AEES" readonly style="background:#eee;">
+                </div>
+                <div class="form-group">
+                    <label>Quantité *</label>
+                    <input type="number" id="quantity" min="1" value="1">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <label>Méthode de paiement *</label>
+                    <select id="payment">
+                        <option>Wave / Orange Money</option>
+                        <option>Espèces à la remise</option>
+                        <option>Virement bancaire</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Total estimé</label>
+                    <input type="text" id="totalDisplay" readonly
+                           style="background:#e8f0f8; font-weight:bold; color:#1a5c8c;">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Message / Remarque</label>
+                <textarea id="remarks" rows="2"
+                          placeholder="Optionnel — livraison, statut dans l'Amicale..."></textarea>
+            </div>
+
+            <button type="submit" class="btn" style="width:100%;">✅ VALIDER LA COMMANDE</button>
+        </form>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SECTION : ADMIN / SUPERVISION
+══════════════════════════════════════ -->
+<div id="adminSection" class="container" style="display:none;">
+    <div class="card admin-panel">
+        <h2>📡 SUPERVISION EN TEMPS RÉEL <span class="badge real-time-badge">LIVE</span></h2>
+
+        <!-- Zone notifications -->
+        <div class="notification-area">
+            <div class="notification-title">
+                🔔 Dernières notifications
+                <span id="notifCount"
+                      style="background:#1a5c8c;color:white;padding:2px 8px;border-radius:20px;font-size:12px;">0</span>
+            </div>
+            <div class="notification-list" id="notificationList">
+                <div style="text-align:center;color:#888;">En attente de nouvelles commandes...</div>
+            </div>
+        </div>
+
+        <!-- Login -->
+        <div class="admin-login" id="adminLoginBox">
+            <input type="password" id="adminPassword" placeholder="Mot de passe admin">
+            <button id="loginAdminBtn" class="btn" style="padding:8px 20px;">Accéder</button>
+        </div>
+
+        <!-- Contenu admin (masqué jusqu'à connexion) -->
+        <div id="adminContent" style="display:none;">
+            <div class="stats" id="statsDiv"></div>
+            <div style="overflow-x:auto;">
+                <table id="ordersTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>WhatsApp</th>
+                            <th>Adresse</th>
+                            <th>Taille</th>
+                            <th>Qté</th>
+                            <th>Total</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <button id="logoutAdminBtn" class="btn" style="background:#555; margin-top:15px;">
+                Déconnexion
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     BOUTON WHATSAPP FLOTTANT
+══════════════════════════════════════ -->
+<a href="https://wa.me/221781234567?text=Bonjour%20AEES,%20je%20souhaite%20commander%20le%20polo%20bleu%20%C3%A0%205000F"
+   class="whatsapp" target="_blank">
+    📱 WhatsApp AEES
+</a>
+
+<!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
+<footer>
+    AEES — Amicale des Élèves et Étudiants de Sangharé | Polo Officiel 5 000 FCFA
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
