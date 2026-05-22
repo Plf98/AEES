@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AEES - Commande Lacoste</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f5f5f5;
+}
+
+header{
+    background:#0066cc;
+    color:white;
+    padding:20px;
+    text-align:center;
+}
+
+header h1{
+    font-size:35px;
+}
+
+.hero{
+    text-align:center;
+    padding:40px 20px;
+}
+
+.hero img{
+    width:250px;
+    border-radius:10px;
+    margin:15px;
+}
+
+.container{
+    width:90%;
+    max-width:700px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+    margin-bottom:40px;
+}
+
+.container h2{
+    text-align:center;
+    margin-bottom:20px;
+    color:#0066cc;
+}
+
+form input,
+form select,
+form textarea{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+form button{
+    width:100%;
+    padding:15px;
+    background:#0066cc;
+    color:white;
+    border:none;
+    border-radius:5px;
+    font-size:18px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+form button:hover{
+    background:#004c99;
+}
+
+.success{
+    background:#d4edda;
+    color:#155724;
+    padding:15px;
+    border-radius:5px;
+    margin-bottom:15px;
+    text-align:center;
+}
+
+footer{
+    background:#111;
+    color:white;
+    text-align:center;
+    padding:15px;
+}
+
+.whatsapp{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:#25D366;
+    color:white;
+    padding:15px;
+    border-radius:50%;
+    text-decoration:none;
+    font-size:25px;
+}
+
+</style>
+</head>
+<body>
+
+<header>
+    <h1>AEES</h1>
+    <p>Amicale des Élèves et Étudiants de Sangharé</p>
+</header>
+
+<section class="hero">
+    <h2>Commandez votre Polo Lacoste maintenant</h2>
+
+    <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=800" alt="Polo">
+
+    <p>
+        Polo Lacoste disponible en plusieurs tailles et couleurs.
+    </p>
+</section>
+
+<div class="container">
+
+    <h2>Formulaire de Commande</h2>
+
+    <?php if($success != "") { ?>
+        <div class="success">
+            <?php echo $success; ?>
+        </div>
+    <?php } ?>
+
+    <form method="POST">
+
+        <input type="text" name="nom" placeholder="Nom et prénom" required>
+
+        <input type="text" name="telephone" placeholder="Numéro WhatsApp" required>
+
+        <input type="text" name="adresse" placeholder="Adresse / Localisation" required>
+
+        <select name="taille" required>
+            <option value="">Choisir la taille</option>
+            <option>S</option>
+            <option>M</option>
+            <option>L</option>
+            <option>XL</option>
+            <option>XXL</option>
+        </select>
+
+        <select name="couleur" required>
+            <option value="">Choisir la couleur</option>
+            <option>Bleu</option>
+            <option>Noir</option>
+            <option>Blanc</option>
+            <option>Rouge</option>
+        </select>
+
+        <input type="number" name="quantite" placeholder="Quantité" required>
+
+        <select name="paiement" required>
+            <option value="">Méthode de paiement</option>
+            <option>Wave</option>
+            <option>Orange Money</option>
+            <option>Free Money</option>
+            <option>Paiement à la livraison</option>
+        </select>
+
+        <textarea name="message" rows="4" placeholder="Remarque"></textarea>
+
+        <button type="submit">
+            Commander maintenant
+        </button>
+
+    </form>
+</div>
+
+<footer>
+    © 2026 AEES - Tous droits réservés
+</footer>
+
+<a class="whatsapp" href="https://wa.me/221770000000">
+💬
+</a>
+
+</body>
+</html>
+```

@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>AEES | Polo Lacoste Vert - Amicale de Sangharé</title>
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: #f5faf5;
+            color: #1a2e1a;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --aees-green: #1a6b1a;
+            --aees-green-dark: #0f4d0f;
+            --black: #111111;
+            --white: #ffffff;
+            --gray-light: #f0f6f0;
+            --shadow: 0 20px 35px -12px rgba(0,0,0,0.12);
+            --shadow-sm: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .navbar {
+            background: var(--white);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            padding: 0.8rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-img {
+            height: 55px;
+            width: auto;
+            object-fit: contain;
+        }
+        
+        .logo-text h2 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--aees-green);
+            letter-spacing: -0.3px;
+        }
+        .logo-text p {
+            font-size: 0.65rem;
+            letter-spacing: 0.5px;
+            color: #2c5a2c;
+            font-weight: 500;
+        }
+        
+        .nav-links a {
+            margin-left: 28px;
+            text-decoration: none;
+            font-weight: 600;
+            color: #2c3e2c;
+            transition: 0.2s;
+        }
+        .nav-links a:hover {
+            color: var(--aees-green);
+        }
+        .btn-outline {
+            border: 2px solid var(--aees-green);
+            background: transparent;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-outline:hover {
+            background: var(--aees-green);
+            color: white;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 5%;
+        }
+        
+        /* Hero section avec logo AEES comme élément central */
+        .hero {
+            background: linear-gradient(135deg, #e8f3e8 0%, #ffffff 100%);
+            border-radius: 2rem;
+            padding: 2rem 2.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-direction: column;
+            box-shadow: var(--shadow-sm);
+        }
+        .hero-logo-central {
+            margin-bottom: 1.5rem;
+        }
+        .hero-logo-central img {
+            max-height: 120px;
+            width: auto;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+        }
+        .hero-text h1 {
+            font-size: 2.3rem;
+            color: var(--aees-green);
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+        }
+        .hero-text .slogan {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1a5c1a;
+            letter-spacing: 1px;
+        }
+        .hero-text p {
+            margin: 1rem auto;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #2d3e2d;
+            max-width: 700px;
+        }
+        .hero-logos {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .hero-logos img {
+            max-height: 65px;
+            width: auto;
+        }
+
+        /* Section produit unique - visuel principal */
+        .featured-product {
+            background: white;
+            border-radius: 2rem;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin: 2rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 2rem;
+            padding: 2rem;
+        }
+        .product-visual {
+            flex: 1;
+            text-align: center;
+            background: linear-gradient(145deg, #f9fff9, #eef5ee);
+            border-radius: 2rem;
+            padding: 1.5rem;
+        }
+        .product-visual img {
+            max-width: 100%;
+            height: auto;
+            max-height: 320px;
+            object-fit: contain;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1));
+        }
+        .product-details {
+            flex: 1;
+            padding: 1rem;
+        }
+        .product-details h2 {
+            font-size: 1.8rem;
+            color: var(--aees-green);
+            margin-bottom: 0.5rem;
+        }
+        .price-big {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--aees-green);
+            margin: 1rem 0;
+        }
+        .price-big small {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        .color-badge {
+            display: inline-block;
+            background: var(--aees-green);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            margin: 1rem 0;
+        }
+        .btn-commander-principal {
+            background: var(--aees-green);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn-commander-principal:hover {
+            background: var(--black);
+            transform: scale(1.02);
+        }
+
+        /* Variantes du polo vert */
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 2rem 0 1rem;
+            border-left: 5px solid var(--aees-green);
+            padding-left: 1rem;
+        }
+        .variants-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .variant-card {
+            background: white;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            text-align: center;
+            padding: 1.5rem;
+            transition: 0.3s ease;
+            border: 1px solid #e0f0e0;
+            cursor: pointer;
+        }
+        .variant-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow);
+        }
+        .variant-img {
+            background: #f5fbf5;
+            border-radius: 1rem;
+            padding: 0.5rem;
+        }
+        .variant-img img {
+            width: 100%;
+            max-height: 160px;
+            object-fit: contain;
+        }
+        .variant-card h3 {
+            margin: 1rem 0 0.3rem;
+            font-weight: 700;
+            color: var(--aees-green);
+        }
+        .price {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--aees-green);
+        }
+
+        /* Formulaire */
+        .form-section {
+            background: white;
+            border-radius: 2rem;
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            margin: 3rem 0;
+            border: 1px solid #e2f0e2;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .full-width {
+            grid-column: span 2;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 18px;
+            border: 1.5px solid #dce8dc;
+            border-radius: 40px;
+            outline: none;
+            font-size: 0.95rem;
+            transition: 0.2s;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--aees-green);
+            box-shadow: 0 0 0 3px rgba(26,107,26,0.1);
+        }
+        label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .submit-btn {
+            background: var(--black);
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.2s;
+        }
+        .submit-btn:hover {
+            background: var(--aees-green);
+        }
+
+        /* Admin */
+        .admin-panel {
+            background: white;
+            border-radius: 2rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            display: none;
+            box-shadow: var(--shadow);
+        }
+        .stats-cards {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+        .stat-card {
+            background: var(--aees-green);
+            color: white;
+            padding: 1rem;
+            border-radius: 1.2rem;
+            flex: 1;
+            text-align: center;
+            font-weight: 600;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+        }
+        th, td {
+            border-bottom: 1px solid #e2e8e2;
+            padding: 12px 8px;
+            text-align: left;
+        }
+        th {
+            background: #ecf5ec;
+            color: #1a6b1a;
+        }
+        .action-btn {
+            background: #ef4444;
+            border: none;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 30px;
+            margin: 0 4px;
+            cursor: pointer;
+        }
+        .edit-btn {
+            background: #3b82f6;
+        }
+        .whatsapp-float {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #25d366;
+            color: white;
+            border-radius: 50px;
+            padding: 12px 22px;
+            font-weight: bold;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            z-index: 99;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .toast-msg {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            background: var(--aees-green);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 40px;
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(50px);}
+            to { opacity: 1; transform: translateX(0);}
+        }
+        @media (max-width: 780px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .full-width {
+                grid-column: span 1;
+            }
+            .hero, .featured-product {
+                flex-direction: column;
+                text-align: center;
+            }
+            .navbar {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+        .admin-login {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .admin-login input {
+            width: auto;
+            padding: 8px 14px;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #0a2a0a;
+            color: #bbdfbb;
+            margin-top: 2rem;
+        }
+        .aees-badge {
+            background: var(--aees-green);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            display: inline-block;
+        }
+        .logo-aees-only {
+            max-height: 80px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="logo-area">
+        <!-- Logo AEES -->
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='60' r='55' fill='%231a6b1a'/%3E%3Ctext x='60' y='78' font-size='38' text-anchor='middle' fill='white' font-weight='bold'%3EAEES%3C/text%3E%3C/svg%3E" alt="AEES" class="logo-img" style="height: 50px;">
+        <div class="logo-text">
+            <h2>AEES — Sangharé</h2>
+            <p>AMICALE DES ÉLÈVES ET ÉTUDIANTS DE SANGHARÉ</p>
+        </div>
+    </div>
+    <div class="nav-links">
+        <a href="#accueil">Accueil</a>
+        <a href="#produit">Le Polo</a>
+        <a href="#commande">Commander</a>
+        <a href="#" id="adminToggleBtn">👑 Admin</a>
+    </div>
+</div>
+
+<section id="accueil" class="container">
+    <div class="hero">
+        <div class="hero-logo-central">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='90' fill='%231a6b1a'/%3E%3Ctext x='100' y='125' font-size='65' text-anchor='middle' fill='white' font-weight='bold'%3EAEES%3C/text%3E%3Ctext x='100' y='165' font-size='22' text-anchor='middle' fill='%23e8ffe8'%3ESANGHARÉ%3C/text%3E%3C/svg%3E" alt="Logo AEES" style="max-height: 130px;">
+        </div>
+        <div class="hero-text">
+            <h1>Polo Lacoste Vert <br>Édition AEES</h1>
+            <div class="slogan"><i class="fas fa-leaf"></i> Une structure qui traverse les générations</div>
+            <p><strong>Amicale des Élèves et Étudiants de Sangharé</strong> — Portez avec fierté notre polo officiel. Qualité Lacoste, couleur verte emblématique, prix solidaire à <strong>5000 FCFA</strong>. Soutenez l'association et rayonnez en vert.</p>
+            <button class="btn-commander-principal" onclick="document.getElementById('commande').scrollIntoView({behavior:'smooth'})"><i class="fas fa-shopping-cart"></i> Commander à 5000 FCFA</button>
+        </div>
+        <div class="hero-logos">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='70' viewBox='0 0 300 70'%3E%3Crect width='300' height='70' fill='white' stroke='%231a6b1a' stroke-width='2' rx='12'/%3E%3Ctext x='20' y='35' fill='%231a6b1a' font-size='20' font-weight='bold'%3EAEES%3C/text%3E%3Ctext x='20' y='58' fill='%23000' font-size='11'%3EAMICALE DES ÉLEVES ET%3C/text%3E%3Ctext x='20' y='70' fill='%23000' font-size='11'%3EÉTUDIANTS DE SANGHARÉ%3C/text%3E%3C/svg%3E" alt="AEES" style="height: 60px;">
+        </div>
+    </div>
+</section>
+
+<!-- SECTION PRODUIT UNIQUE - POLO VERT LACOSTE -->
+<div class="container" id="produit">
+    <div class="featured-product">
+        <div class="product-visual">
+            <img src="https://images.unsplash.com/photo-1586363104864-3c5e6b2e2b8c?w=500&auto=format" alt="Polo Lacoste Vert AEES" 
+                 onerror="this.src='https://static.vecteezy.com/system/resources/previews/023/441/029/non_2x/polo-shirt-mockup-front-view-3d-illustration-free-png.png'">
+            <div style="margin-top: 12px;"><i class="fas fa-circle" style="color:#1a6b1a;"></i> Vert Lacoste Signature AEES</div>
+        </div>
+        <div class="product-details">
+            <h2>Polo Lacoste × AEES Sangharé</h2>
+            <div class="color-badge"><i class="fas fa-palette"></i> Couleur unique : Vert Émeraude</div>
+            <div class="price-big">5 000 FCFA <small>TTC</small></div>
+            <p><i class="fas fa-check" style="color:#1a6b1a;"></i> Matière premium coton piqué<br>
+            <i class="fas fa-check" style="color:#1a6b1a;"></i> Logo crocodile brodé<br>
+            <i class="fas fa-check" style="color:#1a6b1a;"></i> Édition limitée AEES Sangharé<br>
+            <i class="fas fa-check" style="color:#1a6b1a;"></i> Tailles : S , M , L , XL , XXL</p>
+            <button class="btn-commander-principal" onclick="document.getElementById('commande').scrollIntoView({behavior:'smooth'})"><i class="fas fa-cart-plus"></i> Commander maintenant</button>
+        </div>
+    </div>
+</div>
+
+<!-- VARIANTES : exclusivement vert -->
+<div class="container">
+    <div class="section-title"><i class="fas fa-tshirt"></i> Nos modèles (Collection Vert AEES)</div>
+    <div class="variants-grid" id="variantsList"></div>
+</div>
+
+<div class="container" id="commande">
+    <div class="form-section">
+        <h2><i class="fas fa-clipboard-list"></i> Formulaire de commande - Polo Vert Lacoste</h2>
+        <p style="margin-bottom: 1rem;">Prix unique <strong style="font-size:1.4rem; color:#1a6b1a;">5 000 FCFA</strong> par polo (Vert Lacoste officiel)</p>
+        <form id="orderForm">
+            <div class="form-grid">
+                <div><label>Nom complet *</label><input type="text" id="fullname" required placeholder="Mamadou Diallo"></div>
+                <div><label>WhatsApp *</label><input type="tel" id="whatsapp" required placeholder="+221 77 123 45 67"></div>
+                <div><label>Adresse / Localisation</label><input type="text" id="address" placeholder="Sangharé, Dakar, ..."></div>
+                <div><label>Taille du Polo *</label>
+                    <select id="size">
+                        <option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option>
+                    </select>
+                </div>
+                <div><label>Couleur *</label>
+                    <select id="color">
+                        <option>Vert Lacoste (Édition AEES Sangharé)</option>
+                    </select>
+                </div>
+                <div><label>Quantité (5000 FCFA/pièce) *</label><input type="number" id="quantity" min="1" value="1" required></div>
+                <div><label>Méthode de paiement *</label>
+                    <select id="payment">
+                        <option>Wave / Orange Money</option><option>Espèces à la remise</option><option>Virement bancaire</option>
+                    </select>
+                </div>
+                <div class="full-width"><label>Message / Remarque</label><textarea id="remarks" rows="2" placeholder="Précisez si besoin un échange de taille..."></textarea></div>
+            </div>
+            <button type="submit" class="submit-btn"><i class="fas fa-check-double"></i> VALIDER MA COMMANDE (5000 FCFA)</button>
+        </form>
+    </div>
+</div>
+
+<!-- Espace Admin -->
+<div class="container" id="adminDashboard" style="display:none;">
+    <div class="admin-panel" style="display:block;">
+        <div class="admin-header">
+            <h2><i class="fas fa-lock"></i> Administration AEES</h2>
+            <div class="admin-login">
+                <input type="password" id="adminPass" placeholder="Mot de passe">
+                <button id="adminLoginBtn" class="btn-outline">Accéder</button>
+                <button id="adminLogoutBtn" class="btn-outline" style="display:none;">Déconnexion</button>
+            </div>
+        </div>
+        <div id="adminContent" style="display:none;">
+            <div class="stats-cards" id="statsCards"></div>
+            <canvas id="salesChart" width="400" height="180" style="max-height:200px; margin-bottom:20px;"></canvas>
+            <h3>Liste des commandes</h3>
+            <div style="overflow-x:auto;">
+                <table id="ordersTable">
+                    <thead><tr><th>ID</th><th>Nom</th><th>WhatsApp</th><th>Adresse</th><th>Taille</th><th>Qté</th><th>Total</th><th>Paiement</th><th>Actions</th></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a href="https://wa.me/221781234567?text=Bonjour%20AEES,%20je%20souhaite%20commander%20le%20polo%20Lacoste%20vert%20à%205000F" class="whatsapp-float" target="_blank">
+    <i class="fab fa-whatsapp fa-lg"></i> Commander via WhatsApp
+</a>
+
+<footer>
+    <p>© 2025 AEES — Amicale des Élèves et Étudiants de Sangharé · Polo Lacoste vert officiel à 5000 FCFA</p>
+</footer>
+
+<script>
+    // ---------- BASE DE DONNÉES ----------
+    let orders = [];
+    let chartInstance = null;
+    const ADMIN_PASSWORD = "aees2025";
+    const POLO_PRICE = 5000;
+    const UNIQUE_COLOR = "Vert Lacoste (Édition AEES Sangharé)";
+
+    // Variantes uniquement vertes
+    const variants = [
+        { name: "Polo Lacoste Vert Classic", desc: "Coupe classique, crocodile vert" },
+        { name: "Polo Lacoste Vert Sport", desc: "Coupe active, matière respirante" },
+        { name: "Polo Lacoste Vert Héritage", desc: "Édition limitée AEES" }
+    ];
+
+    function loadOrders() {
+        const stored = localStorage.getItem("aees_orders_green");
+        if(stored) orders = JSON.parse(stored);
+        else orders = [];
+        renderAdminTable();
+        updateStatsAndChart();
+    }
+
+    function saveOrders() {
+        localStorage.setItem("aees_orders_green", JSON.stringify(orders));
+        renderAdminTable();
+        updateStatsAndChart();
+    }
+
+    function addOrder(orderData) {
+        const newId = orders.length > 0 ? Math.max(...orders.map(o=>o.id)) + 1 : 1001;
+        const totalPrice = orderData.quantity * POLO_PRICE;
+        const newOrder = {
+            id: newId,
+            ...orderData,
+            total: totalPrice,
+            date: new Date().toLocaleString('fr-FR')
+        };
+        orders.push(newOrder);
+        saveOrders();
+        notifyAdminRealtime(newOrder);
+        showToast("✅ Votre commande a été enregistrée avec succès par l'AEES. Un responsable vous contactera sous 24h.");
+    }
+
+    function notifyAdminRealtime(order) {
+        console.log("Nouvelle commande AEES:", order);
+        const adminDiv = document.getElementById("adminContent");
+        if(adminDiv && adminDiv.style.display !== "none") {
+            const notif = document.createElement("div");
+            notif.className = "toast-msg";
+            notif.style.background = "#0f3b0f";
+            notif.style.top = "80px";
+            notif.style.right = "20px";
+            notif.innerHTML = `🆕 Commande #${order.id} - ${order.fullname}`;
+            document.body.appendChild(notif);
+            setTimeout(() => notif.remove(), 4000);
+        }
+    }
+
+    function deleteOrder(id) {
+        if(confirm("Supprimer cette commande ?")) {
+            orders = orders.filter(o => o.id !== id);
+            saveOrders();
+            showToast("Commande supprimée.");
+        }
+    }
+
+    function editOrder(id) {
+        const order = orders.find(o => o.id === id);
+        if(!order) return;
+        let newName = prompt("Nom complet:", order.fullname);
+        if(newName) order.fullname = newName;
+        let newWhats = prompt("WhatsApp:", order.whatsapp);
+        if(newWhats) order.whatsapp = newWhats;
+        let newQty = prompt("Quantité:", order.quantity);
+        if(newQty && !isNaN(parseInt(newQty))) {
+            order.quantity = parseInt(newQty);
+            order.total = order.quantity * POLO_PRICE;
+        }
+        saveOrders();
+        showToast("Commande modifiée");
+    }
+
+    function renderVariants() {
+        const container = document.getElementById("variantsList");
+        if(!container) return;
+        container.innerHTML = "";
+        variants.forEach((v, idx) => {
+            const card = document.createElement("div");
+            card.className = "variant-card";
+            card.innerHTML = `
+                <div class="variant-img">
+                    <img src="https://images.unsplash.com/photo-1586363104864-3c5e6b2e2b8c?w=300&auto=format" alt="Polo Vert Lacoste"
+                         onerror="this.src='https://static.vecteezy.com/system/resources/previews/023/441/029/non_2x/polo-shirt-mockup-front-view-3d-illustration-free-png.png'">
+                </div>
+                <h3>${v.name}</h3>
+                <p style="font-size:0.8rem; color:#4a674a;">${v.desc}</p>
+                <div class="price">5 000 FCFA</div>
+                <button class="btn-commander" data-variant="${v.name}" style="margin-top:12px; background:#1a6b1a; padding:8px 20px; border-radius:40px; border:none; color:white; cursor:pointer;">Commander</button>
+            `;
+            container.appendChild(card);
+        });
+        document.querySelectorAll(".variant-card .btn-commander").forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                document.getElementById("commande").scrollIntoView({behavior:"smooth"});
+                const variantName = btn.getAttribute("data-variant");
+                if(variantName) document.getElementById("remarks").value = `Intéressé par ${variantName}`;
+            });
+        });
+    }
+
+    function renderAdminTable() {
+        const tbody = document.querySelector("#ordersTable tbody");
+        if(!tbody) return;
+        tbody.innerHTML = "";
+        [...orders].reverse().forEach(order => {
+            const row = tbody.insertRow();
+            row.insertCell(0).innerText = order.id;
+            row.insertCell(1).innerText = order.fullname;
+            row.insertCell(2).innerText = order.whatsapp;
+            row.insertCell(3).innerText = order.address || "—";
+            row.insertCell(4).innerText = order.size;
+            row.insertCell(5).innerText = order.quantity;
+            row.insertCell(6).innerHTML = `<strong>${(order.quantity * POLO_PRICE).toLocaleString()} FCFA</strong>`;
+            row.insertCell(7).innerText = order.payment;
+            const cellAction = row.insertCell(8);
+            const delBtn = document.createElement("button");
+            delBtn.innerText = "Supprimer";
+            delBtn.className = "action-btn";
+            delBtn.onclick = () => deleteOrder(order.id);
+            const editBtn = document.createElement("button");
+            editBtn.innerText = "Modifier";
+            editBtn.className = "action-btn edit-btn";
+            editBtn.onclick = () => editOrder(order.id);
+            cellAction.appendChild(editBtn);
+            cellAction.appendChild(delBtn);
+        });
+    }
+
+    function updateStatsAndChart() {
+        const statsDiv = document.getElementById("statsCards");
+        if(statsDiv) {
+            const totalCmd = orders.length;
+            const totalQty = orders.reduce((s,o)=> s + (o.quantity||0),0);
+            const revenue = totalQty * POLO_PRICE;
+            statsDiv.innerHTML = `
+                <div class="stat-card"><i class="fas fa-box"></i> Commandes: ${totalCmd}</div>
+                <div class="stat-card"><i class="fas fa-tshirt"></i> Polos vendus: ${totalQty}</div>
+                <div class="stat-card"><i class="fas fa-chart-line"></i> CA: ${revenue.toLocaleString()} FCFA</div>
+            `;
+        }
+        const ctx = document.getElementById("salesChart")?.getContext("2d");
+        if(ctx) {
+            const sizes = ["S","M","L","XL","XXL"];
+            const sizeCount = sizes.map(sz => orders.filter(o=>o.size===sz).length);
+            if(chartInstance) chartInstance.destroy();
+            chartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: { labels: sizes, datasets: [{ label: 'Commandes par taille', data: sizeCount, backgroundColor: '#1a6b1a' }] },
+                options: { responsive: true }
+            });
+        }
+    }
+
+    // Formulaire
+    document.getElementById("orderForm")?.addEventListener("submit", function(e) {
+        e.preventDefault();
+        const fullname = document.getElementById("fullname").value.trim();
+        const whatsapp = document.getElementById("whatsapp").value.trim();
+        if(!fullname || !whatsapp) return alert("Nom et WhatsApp requis");
+        const orderData = {
+            fullname,
+            whatsapp,
+            address: document.getElementById("address").value,
+            size: document.getElementById("size").value,
+            color: UNIQUE_COLOR,
+            quantity: parseInt(document.getElementById("quantity").value),
+            payment: document.getElementById("payment").value,
+            remarks: document.getElementById("remarks").value
+        };
+        addOrder(orderData);
+        this.reset();
+        document.getElementById("remarks").value = "";
+    });
+
+    // Admin
+    let adminLogged = false;
+    const adminPanel = document.getElementById("adminDashboard");
+    const adminContentDiv = document.getElementById("adminContent");
+    const adminPass = document.getElementById("adminPass");
+    const adminLoginBtn = document.getElementById("adminLoginBtn");
+    const adminLogoutBtn = document.getElementById("adminLogoutBtn");
+
+    function showAdmin(show) {
+        if(show) {
+            adminPanel.style.display = "block";
+            if(adminLogged) {
+                adminContentDiv.style.display = "block";
+                adminPass.style.display = "none";
+                adminLoginBtn.style.display = "none";
+                adminLogoutBtn.style.display = "inline-block";
+                renderAdminTable(); updateStatsAndChart();
+            } else {
+                adminContentDiv.style.display = "none";
+                adminPass.style.display = "inline-block";
+                adminLoginBtn.style.display = "inline-block";
+                adminLogoutBtn.style.display = "none";
+            }
+        } else adminPanel.style.display = "none";
+    }
+
+    document.getElementById("adminToggleBtn").addEventListener("click", (e) => {
+        e.preventDefault();
+        if(adminPanel.style.display === "none") showAdmin(true);
+        else adminPanel.style.display = "none";
+    });
+    adminLoginBtn.addEventListener("click", () => {
+        if(adminPass.value === ADMIN_PASSWORD) { adminLogged = true; showAdmin(true); adminPass.value = ""; }
+        else alert("Mot de passe incorrect");
+    });
+    adminLogoutBtn.addEventListener("click", () => { adminLogged = false; showAdmin(true); });
+
+    function showToast(msg) {
+        let old = document.querySelector(".toast-msg");
+        if(old) old.remove();
+        let toast = document.createElement("div");
+        toast.className = "toast-msg";
+        toast.innerHTML = `<i class="fas fa-bell"></i> ${msg}`;
+        document.body.appendChild(toast);
+        setTimeout(()=>toast.remove(), 4500);
+    }
+
+    renderVariants();
+    loadOrders();
+    setInterval(() => {
+        if(adminLogged && adminPanel.style.display !== "none") loadOrders();
+    }, 4000);
+</script>
+</body>
+</html>

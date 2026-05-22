@@ -1,0 +1,54 @@
+```html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>QuizMaster - Testez vos connaissances</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="quiz-wrapper">
+            <div class="quiz-header">
+                <h1>🎯 QuizMaster</h1>
+                <div class="stats">
+                    <div class="question-counter" id="questionCounter">Question 1/10</div>
+                    <div class="timer-container">
+                        <svg class="timer-svg" width="50" height="50" viewBox="0 0 50 50">
+                            <circle class="timer-bg" cx="25" cy="25" r="22" />
+                            <circle class="timer-progress" cx="25" cy="25" r="22" />
+                        </svg>
+                        <span class="timer-text" id="timerText">15</span>
+                    </div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+            </div>
+
+            <div class="quiz-content" id="quizContent">
+                <div class="question-text" id="questionText">Chargement...</div>
+                <div class="options-container" id="optionsContainer"></div>
+                <div class="button-group">
+                    <button class="btn btn-restart" id="restartBtn">🔄 Recommencer</button>
+                    <button class="btn btn-next" id="nextBtn">Suivant →</button>
+                </div>
+            </div>
+
+            <div class="result-container" id="resultContainer" style="display: none;">
+                <div class="result-card">
+                    <div class="result-icon">🏆</div>
+                    <h2>Quiz terminé !</h2>
+                    <div class="final-score" id="finalScore">Votre score : 0/10</div>
+                    <div class="result-stats" id="resultStats"></div>
+                    <button class="btn btn-primary" id="playAgainBtn">🎮 Rejouer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+```

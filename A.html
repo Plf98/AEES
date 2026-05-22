@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Club Génie Civil - Quiz GC</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a2a2a 0%, #1a4a3a 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 950px;
+            margin: 0 auto;
+        }
+
+        .quiz-card {
+            background: white;
+            border-radius: 40px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+        }
+
+        .quiz-header {
+            background: linear-gradient(135deg, #1a472a 0%, #0d2818 100%);
+            padding: 30px 35px 25px;
+            text-align: center;
+            border-bottom: 3px solid #d4a017;
+        }
+
+        .club-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .ufr-subtitle {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.85);
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .conf-badge {
+            display: inline-block;
+            background: rgba(212, 160, 23, 0.2);
+            border-left: 3px solid #d4a017;
+            border-right: 3px solid #d4a017;
+            padding: 8px 20px;
+            border-radius: 30px;
+            margin-top: 8px;
+        }
+
+        .conf-badge .date {
+            font-size: 0.8rem;
+            color: #d4a017;
+            font-weight: 600;
+        }
+
+        .conf-badge .theme {
+            font-size: 0.85rem;
+            color: white;
+            font-weight: 500;
+        }
+
+        .progress-section {
+            background: #f8f9fc;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e2e8f0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .quiz-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1a472a;
+        }
+
+        .quiz-label span {
+            color: #d4a017;
+            font-size: 1.2rem;
+        }
+
+        .question-progress {
+            font-size: 1rem;
+            font-weight: 600;
+            background: #e8f0ea;
+            padding: 6px 18px;
+            border-radius: 30px;
+            color: #1a472a;
+        }
+
+        .timer-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #1a472a;
+            padding: 5px 15px;
+            border-radius: 40px;
+        }
+
+        .timer-icon {
+            font-size: 1rem;
+        }
+
+        .timer-display {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #d4a017;
+            background: rgba(0,0,0,0.3);
+            padding: 3px 10px;
+            border-radius: 30px;
+            font-family: monospace;
+        }
+
+        .progress-container {
+            background: #e2e8f0;
+            height: 6px;
+        }
+
+        .progress-bar {
+            background: #d4a017;
+            width: 0%;
+            height: 100%;
+            transition: width 0.4s ease;
+        }
+
+        .quiz-body {
+            padding: 35px;
+            min-height: 520px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .question-text {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1e2f2a;
+            margin-bottom: 30px;
+            line-height: 1.4;
+            padding-left: 10px;
+            border-left: 5px solid #d4a017;
+        }
+
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 35px;
+        }
+
+        .option {
+            background: #ffffff;
+            border: 2px solid #dce5dc;
+            border-radius: 18px;
+            padding: 14px 22px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-size: 0.98rem;
+            font-weight: 500;
+            color: #2d3e3a;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .option-letter {
+            width: 32px;
+            height: 32px;
+            background: #f0f4f0;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #1a472a;
+            transition: 0.2s;
+        }
+
+        .option:hover:not(.disabled) {
+            transform: translateX(6px);
+            border-color: #d4a017;
+            background: #fffaf0;
+        }
+
+        .option:hover:not(.disabled) .option-letter {
+            background: #d4a017;
+            color: white;
+        }
+
+        .option.selected-correct {
+            background: #2e7d64;
+            border-color: #1e5a48;
+            color: white;
+        }
+
+        .option.selected-correct .option-letter {
+            background: white;
+            color: #2e7d64;
+        }
+
+        .option.selected-wrong {
+            background: #c72a2a;
+            border-color: #9b1f1f;
+            color: white;
+        }
+
+        .option.selected-wrong .option-letter {
+            background: white;
+            color: #c72a2a;
+        }
+
+        .option.correct-highlight {
+            background: #2e7d64;
+            border-color: #1e5a48;
+            color: white;
+        }
+
+        .option.correct-highlight .option-letter {
+            background: white;
+            color: #2e7d64;
+        }
+
+        .option.disabled {
+            cursor: not-allowed;
+            opacity: 0.85;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 18px;
+            justify-content: flex-end;
+            margin-top: 15px;
+        }
+
+        .btn {
+            padding: 12px 32px;
+            border: none;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-restart {
+            background: #eef2f0;
+            color: #2d5a45;
+            border: 1px solid #cbdcd3;
+        }
+
+        .btn-restart:hover {
+            background: #e2e8e4;
+        }
+
+        .btn-next {
+            background: #1a472a;
+            color: white;
+            box-shadow: 0 2px 8px rgba(26,71,42,0.3);
+        }
+
+        .btn-next:hover:not(:disabled) {
+            background: #0d361f;
+            transform: translateY(-2px);
+        }
+
+        .btn-next:disabled {
+            opacity: 0.5;
+            cursor: default;
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 40px;
+            overflow: hidden;
+        }
+
+        .form-header {
+            background: linear-gradient(135deg, #1a472a 0%, #0d2818 100%);
+            padding: 30px;
+            text-align: center;
+        }
+
+        .form-header h2 {
+            color: white;
+            font-size: 1.6rem;
+        }
+
+        .form-body {
+            padding: 35px;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1a472a;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #dce5dc;
+            border-radius: 20px;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #d4a017;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: #1a472a;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-submit:hover {
+            background: #0d361f;
+            transform: translateY(-2px);
+        }
+
+        .result-container {
+            padding: 40px;
+            text-align: center;
+        }
+
+        .final-score {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #1a472a;
+            margin: 20px 0;
+        }
+
+        .lock-message {
+            background: #fff8ed;
+            border-left: 6px solid #d4a017;
+            padding: 30px;
+            margin: 20px;
+            border-radius: 25px;
+            text-align: center;
+        }
+
+        @keyframes fadeSlide {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .quiz-body {
+            animation: fadeSlide 0.4s ease;
+        }
+    </style>
+</head>
+<body>
+<div class="container" id="appRoot"></div>
+
+<script>
+    // 10 QUESTIONS GÉNIE CIVIL
+    const QUIZ_SET = [
+        { text: "Quelle est la principale fonction d'un chaînage dans une maçonnerie ?", choices: ["Assurer l'esthétique du mur", "Relier les murs et répartir les efforts", "Protéger contre l'humidité", "Augmenter la hauteur de construction"], correct: 1 },
+        { text: "Sur un chantier, que signifie le sigle « EP » sur un plan ?", choices: ["Égout Pluvial", "Équipement Principal", "Espace de Parking", "Énergie Photovoltaïque"], correct: 0 },
+        { text: "Dans un projet de fondation, quel type de sol présente généralement le risque de retrait-gonflement le plus important ?", choices: ["Sable dense", "Argile plastique", "Grave calcaire", "Roche saine"], correct: 1 },
+        { text: "Quelle est la norme européenne de référence pour le calcul des structures en béton armé ?", choices: ["Eurocode 1", "Eurocode 2", "Eurocode 5", "Eurocode 7"], correct: 1 },
+        { text: "La flèche instantanée d'une poutre en béton armé est principalement due à :", choices: ["La fissuration du béton", "La déformation élastique", "Le fluage à long terme", "Le retrait du béton"], correct: 1 },
+        { text: "Dans un terrassement, le « coefficient de foisonnement » sert à :", choices: ["Calculer la quantité de matériaux compactés", "Estimer l'augmentation de volume après excavation", "Déterminer la portance du sol", "Calculer la pente de talus"], correct: 1 },
+        { text: "Selon l'Eurocode 7, quelle approche est généralement la plus défavorable pour le calcul de la portance des fondations superficielles ?", choices: ["Combinaison 1 (A1+M1+R1)", "Combinaison 2 (A2+M2+R1)", "Combinaison 3 (A1+M2+R3)", "Combinaison 4 (A2+M1+R2)"], correct: 1 },
+        { text: "Dans l'analyse dynamique d'une structure, le « facteur de comportement q » (Eurocode 8) permet de :", choices: ["Augmenter la période propre", "Réduire les efforts sismiques par ductilité", "Calculer la masse modale", "Déterminer l'amortissement visqueux"], correct: 1 },
+        { text: "En modélisation éléments finis d'une dalle en béton, le phénomène de « shear-lag » affecte principalement :", choices: ["La répartition des contraintes dans les membrures larges", "Le flambement local des armatures", "Le fluage différé du béton", "La fissuration sous moment négatif"], correct: 0 },
+        { text: "Dans une analyse de stabilité globale selon l'Eurocode 7, la méthode « phi-c reduction » est utilisée pour :", choices: ["Calculer la portance d'une fondation", "Déterminer le coefficient de sécurité d'un talus", "Évaluer le tassement consolidé", "Dimensionner les écrans de soutènement"], correct: 1 }
+    ];
+
+    const STORAGE_PARTICIPANTS = "cgc_gc_participants";
+    const STORAGE_ACTIVE = "cgc_gc_active";
+
+    let quizState = {
+        active: false,
+        currentIndex: 0,
+        answers: Array(10).fill(null),
+        timerId: null,
+        timeLeft: 15,
+        answered: false,
+        transitioning: false,
+        participantName: null
+    };
+
+    function getParticipants() {
+        const raw = localStorage.getItem(STORAGE_PARTICIPANTS);
+        return raw ? JSON.parse(raw) : [];
+    }
+
+    function saveParticipant(name, level, field) {
+        const list = getParticipants();
+        list.push({ name, level, field, date: new Date().toISOString() });
+        localStorage.setItem(STORAGE_PARTICIPANTS, JSON.stringify(list));
+        localStorage.setItem(STORAGE_ACTIVE, name);
+    }
+
+    function hasPlayedBefore(name) {
+        const list = getParticipants();
+        return list.some(p => p.name.toLowerCase() === name.toLowerCase());
+    }
+
+    function clearTimer() {
+        if (quizState.timerId) {
+            clearInterval(quizState.timerId);
+            quizState.timerId = null;
+        }
+    }
+
+    function renderApp() {
+        const root = document.getElementById('appRoot');
+        const activePlayer = localStorage.getItem(STORAGE_ACTIVE);
+
+        if (activePlayer && !quizState.active) {
+            root.innerHTML = `
+                <div class="quiz-card">
+                    <div class="quiz-header">
+                        <div class="club-title">Club Génie Civil</div>
+                        <div class="ufr-subtitle">UFR SCIENCES DE L'INGÉNIEUR</div>
+                        <div class="conf-badge">
+                            <div class="date">Conférence – 13 Mai 2026</div>
+                            <div class="theme">« Perspectives de l'IA dans le Génie Civil »</div>
+                        </div>
+                    </div>
+                    <div class="lock-message">
+                        ⚠️ <strong>Participation unique</strong><br><br>
+                        <span style="font-size:1.1rem">👤 ${activePlayer}</span><br>
+                        Vous avez déjà participé à ce quiz.<br>
+                        Merci de votre compréhension !<br>
+                        Rendez-vous à la conférence le <strong>13 mai 2026</strong>.
+                    </div>
+                </div>
+            `;
+            return;
+        }
+
+        if (!quizState.active) {
+            root.innerHTML = `
+                <div class="form-card">
+                    <div class="form-header">
+                        <div class="club-title">Club Génie Civil</div>
+                        <div class="ufr-subtitle">UFR SCIENCES DE L'INGÉNIEUR</div>
+                        <div class="conf-badge" style="margin-top:15px">
+                            <div class="date">Conférence – 13 Mai 2026</div>
+                            <div class="theme">« Perspectives de l'IA dans le Génie Civil »</div>
+                        </div>
+                        <h2 style="color:white; margin-top:20px">📐 Quiz Génie Civil</h2>
+                    </div>
+                    <div class="form-body">
+                        <form id="entryForm">
+                            <div class="form-group">
+                                <label>📛 NOM & PRÉNOM</label>
+                                <input type="text" id="fullName" placeholder="Ex: DIOP AMADOU" required>
+                            </div>
+                            <div class="form-group">
+                                <label>🎓 NIVEAU</label>
+                                <select id="level" required>
+                                    <option value="">Sélectionnez</option>
+                                    <option>Licence 1</option><option>Licence 2</option><option>Licence 3</option>
+                                    <option>Master 1</option><option>Master 2</option><option>Doctorat</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>📚 FILIÈRE</label>
+                                <input type="text" id="field" placeholder="Ex: Génie Civil / BTP" required>
+                            </div>
+                            <button type="submit" class="btn-submit">🚀 COMMENCER LE QUIZ</button>
+                        </form>
+                    </div>
+                </div>
+            `;
+            document.getElementById('entryForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const fullName = document.getElementById('fullName').value.trim();
+                const level = document.getElementById('level').value;
+                const field = document.getElementById('field').value.trim();
+
+                if (!fullName || !level || !field) return alert("Veuillez remplir tous les champs.");
+                if (hasPlayedBefore(fullName)) {
+                    alert(`❌ ${fullName}, vous avez déjà participé. Une seule tentative autorisée.`);
+                    return;
+                }
+                saveParticipant(fullName, level, field);
+                quizState.active = true;
+                quizState.participantName = fullName;
+                resetQuizSession();
+                renderQuizInterface();
+            });
+        } else {
+            renderQuizInterface();
+        }
+    }
+
+    function resetQuizSession() {
+        clearTimer();
+        quizState.currentIndex = 0;
+        quizState.answers = Array(10).fill(null);
+        quizState.answered = false;
+        quizState.transitioning = false;
+        quizState.timeLeft = 15;
+    }
+
+    function renderQuizInterface() {
+        const root = document.getElementById('appRoot');
+        root.innerHTML = `
+            <div class="quiz-card">
+                <div class="quiz-header">
+                    <div class="club-title">Club Génie Civil</div>
+                    <div class="ufr-subtitle">UFR SCIENCES DE L'INGÉNIEUR</div>
+                    <div class="conf-badge">
+                        <div class="date">Conférence – 13 Mai 2026</div>
+                        <div class="theme">« Perspectives de l'IA dans le Génie Civil »</div>
+                    </div>
+                </div>
+                <div class="progress-section">
+                    <div class="quiz-label">Quiz Génie Civil <span>📐</span></div>
+                    <div class="question-progress" id="qProgressLabel">QUESTION 1/10</div>
+                    <div class="timer-wrapper">
+                        <span class="timer-icon">⏱️</span>
+                        <span class="timer-display" id="timerValue">15</span>
+                    </div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar" id="progressFill"></div>
+                </div>
+                <div class="quiz-body" id="quizBody">
+                    <div class="question-text" id="questionTxt">Chargement...</div>
+                    <div class="options-grid" id="optionsGrid"></div>
+                    <div class="button-group">
+                        <button class="btn btn-restart" id="restartQuizBtn">🔄 Recommencer</button>
+                        <button class="btn btn-next" id="nextQuizBtn">Suivant →</button>
+                    </div>
+                </div>
+                <div id="resultBlock" style="display: none;">
+                    <div class="result-container">
+                        <div class="result-icon">🏆</div>
+                        <h2>Quiz terminé</h2>
+                        <div class="final-score" id="finalScoreDisplay"></div>
+                        <div id="resultMessage"></div>
+                        <button class="btn btn-restart" id="homeBtn" style="margin-top:20px">🏠 Accueil</button>
+                    </div>
+                </div>
+            </div>
+        `;
+        attachQuizEvents();
+        loadCurrentQuestion();
+        updateProgressBarUI();
+    }
+
+    function attachQuizEvents() {
+        const nextBtn = document.getElementById('nextQuizBtn');
+        const restartBtn = document.getElementById('restartQuizBtn');
+        if (nextBtn) {
+            const newNextBtn = nextBtn.cloneNode(true);
+            nextBtn.parentNode.replaceChild(newNextBtn, nextBtn);
+            newNextBtn.addEventListener('click', () => handleNext());
+        }
+        if (restartBtn) {
+            const newRestartBtn = restartBtn.cloneNode(true);
+            restartBtn.parentNode.replaceChild(newRestartBtn, restartBtn);
+            newRestartBtn.addEventListener('click', () => fullRestart());
+        }
+        const homeBtn = document.getElementById('homeBtn');
+        if (homeBtn) {
+            homeBtn.addEventListener('click', () => {
+                localStorage.removeItem(STORAGE_ACTIVE);
+                quizState.active = false;
+                renderApp();
+            });
+        }
+    }
+
+    function fullRestart() {
+        if (quizState.transitioning) return;
+        clearTimer();
+        quizState.currentIndex = 0;
+        quizState.answers = Array(10).fill(null);
+        quizState.answered = false;
+        quizState.transitioning = false;
+        quizState.timeLeft = 15;
+        const resultBlock = document.getElementById('resultBlock');
+        const quizBody = document.getElementById('quizBody');
+        if (resultBlock) resultBlock.style.display = 'none';
+        if (quizBody) quizBody.style.display = 'flex';
+        loadCurrentQuestion();
+        updateProgressBarUI();
+    }
+
+    function loadCurrentQuestion() {
+        if (quizState.transitioning) return;
+        clearTimer();
+        quizState.answered = false;
+        quizState.timeLeft = 15;
+        updateTimerUI();
+
+        const qData = QUIZ_SET[quizState.currentIndex];
+        const questionTxt = document.getElementById('questionTxt');
+        const qProgressLabel = document.getElementById('qProgressLabel');
+        if (questionTxt) questionTxt.innerText = qData.text;
+        if (qProgressLabel) qProgressLabel.innerHTML = `QUESTION ${quizState.currentIndex+1}/${QUIZ_SET.length}`;
+
+        const grid = document.getElementById('optionsGrid');
+        if (grid) {
+            grid.style.opacity = '0';
+            setTimeout(() => {
+                renderOptions();
+                grid.style.opacity = '1';
+            }, 120);
+        }
+
+        // Restaurer la réponse précédente si elle existe
+        if (quizState.answers[quizState.currentIndex] !== null && quizState.answers[quizState.currentIndex] !== -1) {
+            setTimeout(() => highlightAnswerUI(quizState.answers[quizState.currentIndex], false), 180);
+            // Ne pas démarrer le timer car déjà répondu
+            const nextBtn = document.getElementById('nextQuizBtn');
+            if (nextBtn) nextBtn.disabled = false;
+        } else {
+            startTimerForQuestion();
+            const nextBtn = document.getElementById('nextQuizBtn');
+            if (nextBtn) nextBtn.disabled = true;
+        }
+    }
+
+    function renderOptions() {
+        const grid = document.getElementById('optionsGrid');
+        if (!grid) return;
+        const q = QUIZ_SET[quizState.currentIndex];
+        grid.innerHTML = '';
+        const letters = ['A', 'B', 'C', 'D'];
+        q.choices.forEach((choice, idx) => {
+            const div = document.createElement('div');
+            div.className = 'option';
+            div.setAttribute('data-idx', idx);
+            div.innerHTML = `<span class="option-letter">${letters[idx]}</span><span>${choice}</span>`;
+            div.addEventListener('click', () => {
+                if (!quizState.answered && !quizState.transitioning) selectAnswer(idx);
+            });
+            grid.appendChild(div);
+        });
+    }
+
+    function selectAnswer(selectedIdx) {
+        if (quizState.answered) return;
+        const currentQ = QUIZ_SET[quizState.currentIndex];
+        quizState.answers[quizState.currentIndex] = selectedIdx;
+        quizState.answered = true;
+        clearTimer();
+        const nextBtn = document.getElementById('nextQuizBtn');
+        if (nextBtn) nextBtn.disabled = false;
+        highlightAnswerUI(selectedIdx, true);
+    }
+
+    function highlightAnswerUI(selectedIdx, isNew) {
+        const q = QUIZ_SET[quizState.currentIndex];
+        const opts = document.querySelectorAll('.option');
+        if (!opts.length) return;
+        
+        // Reset des classes
+        opts.forEach(opt => {
+            opt.classList.remove('selected-correct', 'selected-wrong', 'correct-highlight');
+        });
+        
+        if (isNew) {
+            if (selectedIdx === q.correct) {
+                opts[selectedIdx].classList.add('selected-correct');
+            } else {
+                opts[selectedIdx].classList.add('selected-wrong');
+                opts[q.correct].classList.add('correct-highlight');
+            }
+        } else {
+            // Restauration
+            if (selectedIdx === q.correct) {
+                opts[selectedIdx].classList.add('selected-correct');
+            } else {
+                opts[selectedIdx].classList.add('selected-wrong');
+                opts[q.correct].classList.add('correct-highlight');
+            }
+        }
+        
+        opts.forEach(opt => {
+            opt.style.pointerEvents = 'none';
+            opt.classList.add('disabled');
+        });
+    }
+
+    function handleNext() {
+        if (quizState.transitioning) return;
+        // Vérifier si une réponse a été donnée pour la question actuelle
+        if (quizState.answers[quizState.currentIndex] === null || quizState.answers[quizState.currentIndex] === -1) {
+            return;
+        }
+        
+        quizState.transitioning = true;
+        
+        if (quizState.currentIndex < QUIZ_SET.length - 1) {
+            quizState.currentIndex++;
+            loadCurrentQuestion();
+            updateProgressBarUI();
+            setTimeout(() => { 
+                quizState.transitioning = false; 
+            }, 400);
+        } else {
+            finishQuiz();
+            quizState.transitioning = false;
+        }
+    }
+
+    function finishQuiz() {
+        clearTimer();
+        const quizBody = document.getElementById('quizBody');
+        const resultBlock = document.getElementById('resultBlock');
+        if (quizBody) quizBody.style.display = 'none';
+        if (resultBlock) resultBlock.style.display = 'block';
+        
+        let score = 0;
+        for (let i = 0; i < QUIZ_SET.length; i++) {
+            if (quizState.answers[i] === QUIZ_SET[i].correct) score++;
+        }
+        const finalScoreDisplay = document.getElementById('finalScoreDisplay');
+        const resultMessage = document.getElementById('resultMessage');
+        if (finalScoreDisplay) finalScoreDisplay.innerHTML = `${score} / ${QUIZ_SET.length}`;
+        
+        let msg = score === 10 ? "🏅 Expert Génie Civil ! Parfait !" :
+                  (score >= 8 ? "Très bonne maîtrise des concepts GC !" :
+                  (score >= 6 ? "Bonnes bases, encouragez-vous !" : "Révisez et venez nombreux à la conférence le 13 mai 2026."));
+        if (resultMessage) {
+            resultMessage.innerHTML = `${msg}<br><br>🏗️ Club Génie Civil - UFR Sciences de l'Ingénieur<br>Merci ${quizState.participantName} !`;
+        }
+    }
+
+    function updateProgressBarUI() {
+        const percent = ((quizState.currentIndex + 1) / QUIZ_SET.length) * 100;
+        const bar = document.getElementById('progressFill');
+        if (bar) bar.style.width = percent + '%';
+    }
+
+    function startTimerForQuestion() {
+        clearTimer();
+        quizState.timerId = setInterval(() => {
+            if (!quizState.answered && quizState.timeLeft > 0) {
+                quizState.timeLeft--;
+                updateTimerUI();
+                if (quizState.timeLeft === 0) {
+                    clearTimer();
+                    if (!quizState.answered && (quizState.answers[quizState.currentIndex] === null || quizState.answers[quizState.currentIndex] === -1)) {
+                        quizState.answered = true;
+                        const nextBtn = document.getElementById('nextQuizBtn');
+                        if (nextBtn) nextBtn.disabled = false;
+                        const q = QUIZ_SET[quizState.currentIndex];
+                        const opts = document.querySelectorAll('.option');
+                        if (opts && opts[q.correct]) {
+                            opts[q.correct].classList.add('correct-highlight');
+                        }
+                        if (opts) {
+                            opts.forEach(opt => {
+                                opt.style.pointerEvents = 'none';
+                                opt.classList.add('disabled');
+                            });
+                        }
+                        quizState.answers[quizState.currentIndex] = -1;
+                        setTimeout(() => {
+                            if (quizState.currentIndex < QUIZ_SET.length - 1) handleNext();
+                            else finishQuiz();
+                        }, 800);
+                    }
+                }
+            }
+        }, 1000);
+    }
+
+    function updateTimerUI() {
+        const timerSpan = document.getElementById('timerValue');
+        if (timerSpan) timerSpan.innerText = quizState.timeLeft;
+        if (quizState.timeLeft <= 5) {
+            if (timerSpan) timerSpan.style.color = "#e08e2e";
+        } else {
+            if (timerSpan) timerSpan.style.color = "#d4a017";
+        }
+    }
+
+    renderApp();
+</script>
+</body>
+</html>
